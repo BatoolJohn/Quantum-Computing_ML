@@ -1,47 +1,46 @@
-# Quantum vs Classical Machine Learning Models Comparison
+# Grover’s Algorithm: Quantum vs Classical Search with Noise Analysis
 
 ## 🚀 Overview
 
-This project presents a **comparative study between classical machine learning and quantum-enhanced machine learning models** using the Iris dataset.
+This project implements **Grover’s Algorithm**, a fundamental quantum search algorithm, and compares it with a **classical linear search** approach.
 
-The objective is to evaluate:
+In addition, the project explores the **impact of quantum noise** on algorithm performance using simulation.
 
-* Model accuracy
-* Computational efficiency
-* Practical feasibility of quantum machine learning
+The goal is to demonstrate:
 
-By implementing both a **classical Support Vector Machine (SVM)** and a **Quantum Support Vector Classifier (QSVC)**, this project highlights the current capabilities and limitations of quantum approaches in real-world scenarios.
+* Quantum speedup in search problems
+* Differences between classical and quantum computation
+* The effect of noise on quantum systems
 
 ---
 
 ## 🎯 Objectives
 
-* Implement and evaluate a classical SVM model
-* Build a quantum machine learning model using Qiskit
-* Compare performance using accuracy, confusion matrix, and execution time
-* Analyze strengths and limitations of quantum models
-* Understand practical challenges in quantum computing
+* Implement classical linear search for baseline comparison
+* Build Grover’s Algorithm using Qiskit
+* Compare classical vs quantum search complexity
+* Simulate quantum noise and analyze its impact
+* Visualize results using histograms and plots
 
 ---
 
 ## 🛠️ Tech Stack
 
 * **Programming Language**: Python
-* **Classical ML**: Scikit-learn
-* **Quantum ML**: Qiskit Machine Learning
-* **Data Handling**: NumPy, Pandas
-* **Visualization**: Matplotlib
-* **Environment**: Jupyter Notebook
+* **Quantum Framework**: Qiskit
+* **Simulation**: Qiskit Aer Simulator
+* **Visualization**: Matplotlib, Qiskit Visualization
+* **Other Libraries**: NumPy
 
 ---
 
 ## 📂 Project Structure
 
-```id="0b8kmr"
-Quantum-Computing_ML/
+```id="k9q3xp"
+grovers-algorithm/
 │
 ├── notebook/
-│   └── Project 1: Quantum Vs. Classical ML models comparison.ipynb
+│   └── grovers_algorithm.ipynb
 │
 ├── results/
 │   └── figures/       
@@ -52,120 +51,120 @@ Quantum-Computing_ML/
 
 ---
 
-## 📊 Dataset
+## ⚙️ Problem Setup
 
-* **Dataset**: Iris Dataset
-* **Samples**: 150
-* **Features**:
+* **Search Space**: 2 qubits → 4 possible states
 
-  * Sepal length
-  * Sepal width
-  * Petal length
-  * Petal width
+  ```
+  00, 01, 10, 11
+  ```
+* **Target State**: `"10"`
 
-For model training, only:
+### 🔍 Complexity Comparison:
 
-* **Petal length**
-* **Petal width**
-
-were selected due to better class separability and compatibility with quantum models.
+* Classical Search: **O(N)**
+* Quantum Search (Grover): **O(√N)**
 
 ---
 
-## ⚙️ Methodology
+## 🔍 Classical Search
 
-### 1. Data Exploration
+A simple **linear search algorithm** is implemented:
 
-* Loaded and inspected dataset
-* Visualized feature distribution using scatter plots
-<img width="894" height="706" alt="image" src="https://github.com/user-attachments/assets/72210bd5-3d0b-4f0a-9460-5de6b9d3ea75" />
+* Iterates through all elements
+* Checks each item sequentially
+* Stops when the target is found
 
-### 2. Data Preprocessing
+### 📊 Result:
 
-* Selected petal features for better classification
-* Split dataset into training (80%) and testing (20%)
-* Applied feature scaling using StandardScaler
-* <img width="907" height="683" alt="image" src="https://github.com/user-attachments/assets/98240419-64bd-457d-9404-3f0b34cd6217" />
-
-
-### 3. Classical Model (SVM)
-
-* Implemented linear Support Vector Machine
-* Trained on scaled features
-* Evaluated using accuracy, classification report, and confusion matrix
-* <img width="725" height="553" alt="image" src="https://github.com/user-attachments/assets/085f7e5e-b7bc-4c6a-ab67-9651e0a2ec35" />
-
-### 4. Quantum Model (QSVC)
-
-* Used Qiskit to implement Quantum SVM
-* Applied:
-
-  * ZZFeatureMap (data encoding)
-  * FidelityQuantumKernel (similarity computation)
-* Trained and evaluated on the same dataset
-* <img width="721" height="555" alt="image" src="https://github.com/user-attachments/assets/5efaea37-b5a2-4c79-9a2e-4e156fab4972" />
-
-### 5. Performance Comparison
-
-* Compared:
-
-  * Accuracy
-  * Execution time
-  * Prediction errors
-  * <img width="506" height="328" alt="image" src="https://github.com/user-attachments/assets/00a05ab5-2bb8-4cb9-9bf1-ae6d2ea7f754" />
-
-
-
-
-  
-
+* Steps taken: **3**
+* Time: ~0.0002 sec
 
 ---
 
-## 📈 Results
+## ⚛️ Quantum Implementation (Grover’s Algorithm)
 
-### 🔹 Accuracy Comparison
+The quantum solution consists of the following steps:
 
-* **Classical Model (SVM)**: **1.00 (100%)**
-* **Quantum Model (QSVC)**: **0.73 (73%)**
-* <img width="892" height="716" alt="image" src="https://github.com/user-attachments/assets/48fb4993-6204-4384-894d-9dd839d7b54f" />
+### 1. Superposition
 
+* Apply Hadamard gates
+* Creates equal probability of all states
 
-### 🔹 Time Comparison
+### 2. Oracle
 
-* Classical Model: ~0.001 sec
-* Quantum Model: ~14 sec
+* Marks the target state (`"10"`)
+* Applies phase flip to correct solution
 
-### 🔹 Confusion Matrix Insights
+### 3. Diffusion Operator
 
-* Classical model achieved perfect classification
-* Quantum model showed misclassifications, especially in overlapping classes
-* <img width="503" height="898" alt="image" src="https://github.com/user-attachments/assets/868e562c-6bbe-4579-ae60-669144d7efac" />
+* Amplifies probability of target state
+* Reduces probability of other states
 
+### 4. Measurement
 
----
-
-## 🔍 Key Insights
-
-* Classical models significantly outperform quantum models in this experiment
-* Quantum models are:
-
-  * Computationally expensive
-  * Sensitive to feature encoding
-* Quantum machine learning is still **experimental and evolving**
-* Feature selection plays a critical role in performance
+* Converts quantum state to classical output
 
 ---
 
-## 📊 Visualizations
+## 📊 Results
+
+### 🔹 Ideal Quantum Output
+
+* Target state `"10"` appears with **100% probability**
+
+### 🔹 Noisy Quantum Output
+
+Example result:
+
+```
+{'10': 534, '00': 194, '11': 183, '01': 113}
+```
+
+### 🔹 Observations:
+
+* Target state still dominant
+* Noise introduces errors and uncertainty
+
+---
+
+## ⚖️ Classical vs Quantum Comparison
+
+| Metric         | Classical Search | Quantum Search      |
+| -------------- | ---------------- | ------------------- |
+| Complexity     | O(N)             | O(√N)               |
+| Steps (N=4)    | 3                | ~2                  |
+| Execution Time | Very Fast        | Slower (simulation) |
+| Accuracy       | Exact            | Affected by noise   |
+
+---
+
+## 🔊 Noise Simulation
+
+A **depolarizing noise model (10%)** is applied to simulate real quantum hardware conditions.
+
+### 🔹 Noise Effects:
+
+* Reduces probability of correct result
+* Introduces incorrect states
+* Demonstrates limitations of current quantum systems
+
+---
+
+## 📈 Visualizations
 
 The project includes:
 
-* Scatter plots for data understanding
-* Accuracy comparison bar chart
-* Confusion matrices for both models
+* Step comparison bar chart (Classical vs Quantum)
+* Histogram comparison:
 
-These visualizations provide clear insights into model performance differences.
+  * Ideal results
+  * Noisy results
+
+These visualizations clearly illustrate:
+
+* Quantum advantage in theory
+* Practical limitations due to noise
 
 ---
 
@@ -173,32 +172,32 @@ These visualizations provide clear insights into model performance differences.
 
 ### 1. Clone the repository
 
-```bash id="e1k6xv"
-git clone https://github.com/BatoolJohn/Quantum-Computing_ML.git
-cd Quantum-Computing_ML
+```bash id="4r6znt"
+git clone https://github.com/BatoolJohn/Quantum-Computaing_ML.git
+cd Project 2: Grover's algorithm implementation
 ```
 
 ### 2. Install dependencies
 
-```bash id="q6k7dp"
+```bash id="d9v3pa"
 pip install -r requirements.txt
 ```
 
 ### 3. Run the notebook
 
-```bash id="m8d3zs"
-jupyter notebook notebook/Project_1_Quantum_Vs_Classical_ML_models_comparison.ipynb
+```bash id="r2n8xs"
+jupyter notebook notebook/Project 2: Grover's algorithm implementation.ipynb
 ```
 
 ---
 
 ## 🚧 Future Improvements
 
-* Test on larger and more complex datasets
-* Optimize quantum circuits and feature maps
-* Implement hybrid quantum-classical models
-* Run experiments on real quantum hardware
-* Apply hyperparameter tuning
+* Extend to more qubits (larger search space)
+* Optimize oracle construction
+* Implement multiple target states
+* Run on real quantum hardware
+* Apply error mitigation techniques
 
 ---
 
@@ -206,25 +205,24 @@ jupyter notebook notebook/Project_1_Quantum_Vs_Classical_ML_models_comparison.ip
 
 This project demonstrates:
 
-* Strong understanding of **machine learning fundamentals**
-* Practical experience with **quantum computing frameworks (Qiskit)**
-* Ability to perform **comparative experimental analysis**
-* Awareness of **real-world limitations of emerging technologies**
+* Strong understanding of **quantum algorithms (Grover’s Algorithm)**
+* Ability to compare **classical vs quantum computation**
+* Knowledge of **quantum noise and its impact**
+* Practical experience using **Qiskit and quantum simulations**
 
 ---
 
 ## 🧠 Conclusion
 
-While quantum computing offers theoretical advantages, this project shows that:
+Grover’s Algorithm demonstrates a clear **theoretical advantage** over classical search by reducing complexity from **O(N) to O(√N)**.
 
-* Classical machine learning models currently provide **better accuracy and efficiency**
-* Quantum models are limited by:
+However, this project also highlights key challenges:
 
-  * Simulation overhead
-  * Algorithm maturity
-  * Hardware constraints
+* Quantum simulations are computationally expensive
+* Noise significantly affects accuracy
+* Current hardware limitations restrict real-world performance
 
-👉 At present, **quantum machine learning is not yet competitive for small-scale practical problems**, but it holds strong potential for future advancements.
+👉 While quantum computing shows strong potential, **practical advantages are still limited by noise and hardware constraints**.
 
 ---
 
@@ -238,7 +236,7 @@ This project is licensed under the Apache-2.0 License.
 
 **Attiya Batool**
 
-* LinkedIn: https://linkedin.com/in/attiya-b-996b832b
+* LinkedIn: https://linkedin.com/in/your-profile
 * Email: batooljohn@gmail.com
 
 ---
