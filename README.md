@@ -1,223 +1,167 @@
-# Grover’s Algorithm: Quantum vs Classical Search with Noise Analysis
+# ⚛️ Quantum Noise Analysis using Bell State
 
 ## 🚀 Overview
 
-This project implements **Grover’s Algorithm**, a fundamental quantum search algorithm, and compares it with a **classical linear search** approach.
+This project explores the impact of **quantum noise** on an entangled quantum system using a **Bell state circuit**. By simulating both ideal and noisy environments, the project demonstrates how real-world imperfections affect quantum computation reliability.
 
-In addition, the project explores the **impact of quantum noise** on algorithm performance using simulation.
-
-The goal is to demonstrate:
-
-* Quantum speedup in search problems
-* Differences between classical and quantum computation
-* The effect of noise on quantum systems
+The implementation is carried out using **Qiskit** and focuses on understanding noise behavior in quantum systems.
 
 ---
 
 ## 🎯 Objectives
 
-* Implement classical linear search for baseline comparison
-* Build Grover’s Algorithm using Qiskit
-* Compare classical vs quantum search complexity
-* Simulate quantum noise and analyze its impact
-* Visualize results using histograms and plots
+* Create a Bell state using quantum gates
+* Simulate ideal (noise-free) quantum behavior
+* Introduce depolarizing noise into the system
+* Analyze accuracy and error rates
+* Study the impact of varying noise levels
+
+---
+
+## ⚛️ Key Quantum Concept
+
+### 🔗 Bell State (Entanglement)
+
+A Bell state is a maximally entangled quantum state of two qubits:
+
+[
+|\psi\rangle = \frac{1}{\sqrt{2}} (|00\rangle + |11\rangle)
+]
+
+### 📌 Key Property:
+
+* Measurement results are always **correlated**
+* Only two outcomes appear:
+
+  * `00`
+  * `11`
+
+This reflects perfect quantum entanglement.
 
 ---
 
 ## 🛠️ Tech Stack
 
-* **Programming Language**: Python
-* **Quantum Framework**: Qiskit
-* **Simulation**: Qiskit Aer Simulator
-* **Visualization**: Matplotlib, Qiskit Visualization
-* **Other Libraries**: NumPy
+* Python
+* Qiskit
+* Qiskit Aer Simulator
+* Matplotlib
 
 ---
 
-## 📂 Project Structure
+## 🔬 Methodology
 
-```id="k9q3xp"
-grovers-algorithm/
-│
-├── notebook/
-│   └── grovers_algorithm.ipynb
-│
-├── results/
-│   └── figures/       
-│
-├── requirements.txt
-└── README.md
-```
+### 1️⃣ Bell State Circuit
+
+* Apply Hadamard gate → superposition
+* Apply CNOT gate → entanglement
+* Measure qubits
+* <img width="362" height="181" alt="image" src="https://github.com/user-attachments/assets/5cf534c1-b2f6-4ca7-a842-b1620cddace2" />
 
 ---
 
-## ⚙️ Problem Setup
+### 2️⃣ Ideal Simulation
 
-* **Search Space**: 2 qubits → 4 possible states
+* Run circuit without noise
+* Expected output:
 
-  ```
-  00, 01, 10, 11
-  ```
-* **Target State**: `"10"`
-* <img width="474" height="225" alt="image" src="https://github.com/user-attachments/assets/316c3c52-81b7-4db6-9642-8f423edb2e3b" />
-
-
-### 🔍 Complexity Comparison:
-
-* Classical Search: **O(N)**
-* Quantum Search (Grover): **O(√N)**
-
----
-
-## 🔍 Classical Search
-
-A simple **linear search algorithm** is implemented:
-
-* Iterates through all elements
-* Checks each item sequentially
-* Stops when the target is found
-
-### 📊 Result:
-
-* Steps taken: **3**
-* Time: ~0.0002 sec
-* <img width="532" height="227" alt="image" src="https://github.com/user-attachments/assets/77d9006f-b8d8-4d5b-a866-8e9627e5b56d" />
+  * Only `00` and `11`
+  * Nearly equal probabilities
+  * <img width="726" height="57" alt="image" src="https://github.com/user-attachments/assets/64bdf0b4-3cbd-4318-95eb-399ac7a3427d" />
 
 
 ---
 
-## ⚛️ Quantum Implementation (Grover’s Algorithm)
+### 3️⃣ Noise Modeling
 
-The quantum solution consists of the following steps:
+* Apply **depolarizing noise (10%)**
+* Added to:
 
-### 1. Superposition
-
-* Apply Hadamard gates
-* Creates equal probability of all states
-* <img width="234" height="177" alt="image" src="https://github.com/user-attachments/assets/d2a4b975-8bf8-403f-9aa4-d1b00c63a883" />
-
-
-### 2. Oracle
-
-* Marks the target state (`"10"`)
-* Applies phase flip to correct solution
-* <img width="414" height="182" alt="image" src="https://github.com/user-attachments/assets/82ca8327-6a13-453c-ae2d-23c24ac1b739" />
-
-
-### 3. Diffusion Operator
-
-* Amplifies probability of target state
-* Reduces probability of other states
-* <img width="792" height="184" alt="image" src="https://github.com/user-attachments/assets/183edb30-07aa-4d39-9964-c2d8d2a39277" />
-
-
-### 4. Measurement
-
-* Converts quantum state to classical output
-* <img width="865" height="190" alt="image" src="https://github.com/user-attachments/assets/af4516a5-4f35-455d-9c14-71cfe7dafc72" />
-
+  * Single-qubit gates (H)
+  * Two-qubit gates (CX)
 
 ---
 
-## 📊 Results
+### 4️⃣ Noisy Simulation
 
-### 🔹 Ideal Quantum Output
-
-* Target state `"10"` appears with **100% probability**
-
-### 🔹 Noisy Quantum Output
-
-Example result:
+Example output:
 
 ```
-{'10': 534, '00': 194, '11': 183, '01': 113}
+{'00': 459, '11': 502, '01': 33, '10': 30}
 ```
 
-### 🔹 Observations:
+### 🔍 Observation:
 
-* Target state still dominant
-* Noise introduces errors and uncertainty
-* <img width="504" height="413" alt="image" src="https://github.com/user-attachments/assets/6f14284f-3898-484e-972e-037c28437528" />
-
+* Correct states: `00`, `11`
+* Error states: `01`, `10`
 
 ---
 
-## ⚖️ Classical vs Quantum Comparison
+### 5️⃣ Visualization
 
-| Metric         | Classical Search | Quantum Search      |
-| -------------- | ---------------- | ------------------- |
-| Complexity     | O(N)             | O(√N)               |
-| Steps (N=4)    | 3                | ~2                  |
-| Execution Time | Very Fast        | Slower (simulation) |
-| Accuracy       | Exact            | Affected by noise   |
-
-*<img width="895" height="697" alt="image" src="https://github.com/user-attachments/assets/5e5f487b-aeff-4a43-b59c-decb3989bac3" />
-
----
-
-## 🔊 Noise Simulation
-
-A **depolarizing noise model (10%)** is applied to simulate real quantum hardware conditions.
-
-### 🔹 Noise Effects:
-
-* Reduces probability of correct result
-* Introduces incorrect states
-* Demonstrates limitations of current quantum systems
-* <img width="747" height="122" alt="image" src="https://github.com/user-attachments/assets/3bea141c-e6bc-4203-b641-9e72d38bcb3d" />
-
-
----
-
-## 📈 Visualizations
-
-The project includes:
-
-* Step comparison bar chart (Classical vs Quantum)
 * Histogram comparison:
 
-  * Ideal results
-  * Noisy results
-
-These visualizations clearly illustrate:
-
-* Quantum advantage in theory
-* Practical limitations due to noise
-* <img width="957" height="725" alt="image" src="https://github.com/user-attachments/assets/655008d6-f2bb-4900-87ff-fc815c875a4c" />
+  * Ideal vs Noisy results
+* Shows probability distribution changes due to noise
+* <img width="967" height="745" alt="image" src="https://github.com/user-attachments/assets/c8fdf825-4415-4217-9ff1-03aecbf07b89" />
 
 
 ---
 
-## ▶️ How to Run
+### 6️⃣ Noise Impact Analysis
 
-### 1. Clone the repository
+| Metric     | Value  |
+| ---------- | ------ |
+| Accuracy   | 93.85% |
+| Error Rate | 6.15%  |
+*<img width="380" height="180" alt="image" src="https://github.com/user-attachments/assets/004e5887-fe58-478e-bca0-bf841a5266fc" />
 
-```bash id="4r6znt"
-git clone https://github.com/BatoolJohn/Quantum-Computaing_ML.git
-cd Project 2: Grover's algorithm implementation
-```
+### 📌 Insight:
 
-### 2. Install dependencies
-
-```bash id="d9v3pa"
-pip install -r requirements.txt
-```
-
-### 3. Run the notebook
-
-```bash id="r2n8xs"
-jupyter notebook notebook/Project 2: Grover's algorithm implementation.ipynb
-```
+Even small noise introduces measurable errors in quantum systems.
 
 ---
 
-## 🚧 Future Improvements
+### 7️⃣ Noise Level Experiment
 
-* Extend to more qubits (larger search space)
-* Optimize oracle construction
-* Implement multiple target states
-* Run on real quantum hardware
-* Apply error mitigation techniques
+Tested noise levels:
+
+* 5%
+* 10%
+* 20%
+
+| Noise Level | Effect                  |
+| ----------- | ----------------------- |
+| 0.05        | Near ideal results      |
+| 0.10        | Moderate errors         |
+| 0.20        | Significant degradation |
+
+*<img width="641" height="252" alt="image" src="https://github.com/user-attachments/assets/de685a69-6bd6-458f-9100-37c1f5f11383" />
+
+### 📊 Key Insight:
+
+As noise increases:
+
+* Accuracy decreases
+* Error states increase
+* <img width="957" height="740" alt="image" src="https://github.com/user-attachments/assets/734f8678-1404-4105-9991-7f6af91bf76e" />
+
+
+---
+
+## 📊 Results Summary
+
+* Ideal system produces perfectly correlated outputs
+* Noise introduces incorrect states
+* System reliability decreases with noise
+
+---
+
+## ⚠️ Challenges
+
+* Quantum systems are highly sensitive to noise
+* Error rates increase rapidly with noise levels
+* Real quantum hardware requires advanced error mitigation
 
 ---
 
@@ -225,39 +169,64 @@ jupyter notebook notebook/Project 2: Grover's algorithm implementation.ipynb
 
 This project demonstrates:
 
-* Strong understanding of **quantum algorithms (Grover’s Algorithm)**
-* Ability to compare **classical vs quantum computation**
-* Knowledge of **quantum noise and its impact**
-* Practical experience using **Qiskit and quantum simulations**
+* Understanding of **quantum entanglement**
+* Practical implementation of **noise models**
+* Ability to analyze **quantum system reliability**
+* Hands-on experience with **quantum simulation tools**
+
+---
+
+## 🚀 Future Improvements
+
+* Implement quantum error correction techniques
+* Run experiments on real quantum hardware
+* Explore advanced noise models
+* Extend to multi-qubit systems
 
 ---
 
 ## 🧠 Conclusion
 
-Grover’s Algorithm demonstrates a clear **theoretical advantage** over classical search by reducing complexity from **O(N) to O(√N)**.
+Quantum computing offers powerful computational advantages, but **noise remains a fundamental challenge**.
 
-However, this project also highlights key challenges:
+This project highlights the importance of:
 
-* Quantum simulations are computationally expensive
-* Noise significantly affects accuracy
-* Current hardware limitations restrict real-world performance
+* Noise modeling
+* Error analysis
+* Robust quantum system design
 
-👉 While quantum computing shows strong potential, **practical advantages are still limited by noise and hardware constraints**.
+---
+
+## 📂 Project Structure
+
+```
+Quantum-Noise-Analysis/
+│── notebook.ipynb
+│── README.md
+│── requirements.txt
+```
+
+---
+
+## 📦 Installation
+
+```bash
+pip install -r requirements.txt
+```
 
 ---
 
 ## 📜 License
 
-This project is licensed under the Apache-2.0 License.
+Apache-2.0 License
 
 ---
 
 ## 📬 Contact
 
 **Attiya Batool**
-
-* LinkedIn: https://linkedin.com/in/attiya-b-996b832b
-* Email: batooljohn@gmail.com
+LinkedIn: https://linkedin.com/in/attiya-b-996b832b
+Email: batooljohn@gmail.com)
 
 ---
 
