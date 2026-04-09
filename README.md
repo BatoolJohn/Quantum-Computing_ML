@@ -24,9 +24,7 @@ The implementation is carried out using **Qiskit** and focuses on understanding 
 
 A Bell state is a maximally entangled quantum state of two qubits:
 
-[
-|\psi\rangle = \frac{1}{\sqrt{2}} (|00\rangle + |11\rangle)
-]
+*<img width="310" height="101" alt="image" src="https://github.com/user-attachments/assets/500f624b-d5f5-4284-94c4-c13f1c17b346" />
 
 ### 📌 Key Property:
 
