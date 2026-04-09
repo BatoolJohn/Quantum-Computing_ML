@@ -59,6 +59,8 @@ grovers-algorithm/
   00, 01, 10, 11
   ```
 * **Target State**: `"10"`
+* <img width="474" height="225" alt="image" src="https://github.com/user-attachments/assets/316c3c52-81b7-4db6-9642-8f423edb2e3b" />
+
 
 ### 🔍 Complexity Comparison:
 
@@ -79,6 +81,8 @@ A simple **linear search algorithm** is implemented:
 
 * Steps taken: **3**
 * Time: ~0.0002 sec
+* <img width="532" height="227" alt="image" src="https://github.com/user-attachments/assets/77d9006f-b8d8-4d5b-a866-8e9627e5b56d" />
+
 
 ---
 
@@ -90,20 +94,28 @@ The quantum solution consists of the following steps:
 
 * Apply Hadamard gates
 * Creates equal probability of all states
+* <img width="234" height="177" alt="image" src="https://github.com/user-attachments/assets/d2a4b975-8bf8-403f-9aa4-d1b00c63a883" />
+
 
 ### 2. Oracle
 
 * Marks the target state (`"10"`)
 * Applies phase flip to correct solution
+* <img width="414" height="182" alt="image" src="https://github.com/user-attachments/assets/82ca8327-6a13-453c-ae2d-23c24ac1b739" />
+
 
 ### 3. Diffusion Operator
 
 * Amplifies probability of target state
 * Reduces probability of other states
+* <img width="792" height="184" alt="image" src="https://github.com/user-attachments/assets/183edb30-07aa-4d39-9964-c2d8d2a39277" />
+
 
 ### 4. Measurement
 
 * Converts quantum state to classical output
+* <img width="865" height="190" alt="image" src="https://github.com/user-attachments/assets/af4516a5-4f35-455d-9c14-71cfe7dafc72" />
+
 
 ---
 
@@ -125,6 +137,8 @@ Example result:
 
 * Target state still dominant
 * Noise introduces errors and uncertainty
+* <img width="504" height="413" alt="image" src="https://github.com/user-attachments/assets/6f14284f-3898-484e-972e-037c28437528" />
+
 
 ---
 
@@ -137,6 +151,8 @@ Example result:
 | Execution Time | Very Fast        | Slower (simulation) |
 | Accuracy       | Exact            | Affected by noise   |
 
+*<img width="895" height="697" alt="image" src="https://github.com/user-attachments/assets/5e5f487b-aeff-4a43-b59c-decb3989bac3" />
+
 ---
 
 ## 🔊 Noise Simulation
@@ -148,6 +164,8 @@ A **depolarizing noise model (10%)** is applied to simulate real quantum hardwar
 * Reduces probability of correct result
 * Introduces incorrect states
 * Demonstrates limitations of current quantum systems
+* <img width="747" height="122" alt="image" src="https://github.com/user-attachments/assets/3bea141c-e6bc-4203-b641-9e72d38bcb3d" />
+
 
 ---
 
@@ -165,6 +183,8 @@ These visualizations clearly illustrate:
 
 * Quantum advantage in theory
 * Practical limitations due to noise
+* <img width="957" height="725" alt="image" src="https://github.com/user-attachments/assets/655008d6-f2bb-4900-87ff-fc815c875a4c" />
+
 
 ---
 
@@ -236,7 +256,7 @@ This project is licensed under the Apache-2.0 License.
 
 **Attiya Batool**
 
-* LinkedIn: https://linkedin.com/in/your-profile
+* LinkedIn: https://linkedin.com/in/attiya-b-996b832b
 * Email: batooljohn@gmail.com
 
 ---
