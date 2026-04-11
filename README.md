@@ -52,8 +52,6 @@ Grover’s algorithm consists of four main steps:
 
 4. **Measurement**
    Returns the final result
-   <img width="496" height="115" alt="image" src="https://github.com/user-attachments/assets/1f73dea6-62a5-4e2a-95d0-a9dbd7a1cad8" />
-
 
 📌 *For N = 4, only one Grover iteration is required.*
 
@@ -66,6 +64,7 @@ To mark the target state `01`, the circuit:
 * Applies an X gate to transform `01 → 11`
 * Applies a Controlled-Z (CZ) gate to flip the phase of `|11⟩`
 * Reverses the transformation
+*   <img width="496" height="115" alt="image" src="https://github.com/user-attachments/assets/1f73dea6-62a5-4e2a-95d0-a9dbd7a1cad8" />
 
 This ensures only the target state is marked for amplification.
 
