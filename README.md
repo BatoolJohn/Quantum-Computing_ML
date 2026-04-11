@@ -1,179 +1,250 @@
-# ⚛️ Grover’s Algorithm with Noise Analysis
+# ⚛️ Variational Quantum Classifier (VQC) with Classical Comparison
 
-## 🚀 Overview
-
-This project demonstrates **Grover’s Search Algorithm**, a fundamental quantum algorithm used to locate a target element in an unsorted database with quadratic speedup over classical methods.
-
-The project also explores the **impact of quantum noise** on algorithm performance by comparing ideal (noise-free) and realistic (noisy) simulations using Qiskit.
+A research-oriented implementation of a **Variational Quantum Classifier (VQC)** using Qiskit, compared against a classical Logistic Regression model on a noisy binary classification dataset.
 
 ---
 
-## 🎯 Objectives
+## 🚀 Project Overview
 
-* Implement Grover’s Algorithm for a 2-qubit system
-* Search for a specific target state (`01`)
-* Simulate ideal quantum behavior
-* Introduce depolarizing noise
-* Analyze performance degradation due to noise
+This project explores the capabilities and limitations of **quantum machine learning** by implementing a hybrid quantum-classical model and evaluating its performance against a classical baseline.
+
+### 🎯 Objectives:
+
+* Build a **Variational Quantum Classifier (VQC)**
+* Train using classical optimization (COBYLA)
+* Compare with **Logistic Regression**
+* Analyze:
+
+  * Training behavior
+  * Model accuracy
+  * Effect of quantum noise
+  * Decision boundaries
 
 ---
 
-## ⚛️ Key Quantum Concept
+## 🧠 Key Features
 
-### 🔍 Grover’s Search Algorithm
+* ⚛️ Multi-layer Variational Quantum Circuit (VQC)
+* 🔁 Classical optimization using SciPy (COBYLA)
+* 📉 Training loss tracking and visualization
+* 🔊 Noise simulation using Qiskit Aer
+* 📊 Classical vs Quantum performance comparison
+* 🧭 Decision boundary visualization
 
-Grover’s algorithm amplifies the probability of a target state in an unsorted search space.
+---
 
-### 📊 Search Space:
-
-* Number of qubits: 2
-* Total states: 4 → `00`, `01`, `10`, `11`
-
-### 🎯 Target State:
+## 🗂️ Project Structure
 
 ```
-01
+📦 Quantum-Computing_ML
+ ┣ 📜 Project_5_Hybrid_Quantum_Classical_Machine_Learning.ipynb
+ ┣ 📜 README.md
+ ┗ 📜 requirements.txt
 ```
 
 ---
 
-## ⚙️ Algorithm Structure
+## ⚙️ Installation
 
-Grover’s algorithm consists of four main steps:
-
-1. **Superposition**
-   Creates equal probability across all states
-
-2. **Oracle**
-   Marks the target state by flipping its phase
-
-3. **Diffusion Operator**
-   Amplifies the probability of the marked state
-
-4. **Measurement**
-   Returns the final result
-
-📌 *For N = 4, only one Grover iteration is required.*
+```bash
+pip install qiskit qiskit-aer numpy matplotlib scikit-learn scipy
+```
 
 ---
 
-## 🔧 Oracle Design
+## 📊 Dataset
 
-To mark the target state `01`, the circuit:
+A synthetic dataset is generated using `make_classification` with:
 
-* Applies an X gate to transform `01 → 11`
-* Applies a Controlled-Z (CZ) gate to flip the phase of `|11⟩`
-* Reverses the transformation
-* <img width="515" height="121" alt="image" src="https://github.com/user-attachments/assets/f350bc74-5dc5-4e9e-bbba-35b60c64733a" />
+* **2 features** (for visualization)
+* **Low class separation (0.4)**
+* **Noise introduced (flip_y = 0.2)**
 
+👉 This creates a **challenging classification problem** with overlapping classes.
 
-This ensures only the target state is marked for amplification.
+---
+
+## 🧠 Classical Model
+
+A **Logistic Regression** model is used as a baseline.
+
+### Result:
+
+```
+Accuracy: ~0.80
+```
+
+### Interpretation:
+
+* Performs well despite noise
+* Serves as a strong benchmark
+
+---
+
+## ⚛️ Quantum Model (VQC)
+
+### Architecture:
+
+* 2 qubits
+* RY encoding of features
+* Multi-layer parameterized rotations
+* CNOT entanglement
+
+### Training:
+
+* Optimizer: COBYLA
+* Loss: Mean Squared Error
+
+---
+
+## 📉 Training Behavior
+
+The loss curve shows:
+
+* Initial decrease in loss
+* Convergence after several iterations
+* Plateau indicating limited model capacity
+
+👉 Confirms that training is working correctly.
 
 ---
 
 ## 📊 Results
 
-### ✅ Ideal Simulation (No Noise)
-
-```id="c8u7xi"
-{'01': 1024}
-```
-
-* Success Probability: **1.0**
-* The algorithm perfectly identifies the target state
+| Model                           | Accuracy |
+| ------------------------------- | -------- |
+| Classical (Logistic Regression) | ~0.80    |
+| Quantum (Ideal Simulator)       | ~0.43    |
+| Quantum (Noisy Simulator)       | ~0.43    |
 
 ---
 
-### 🔊 Noisy Simulation (10% Depolarizing Noise)
+## 🔊 Noise Analysis
 
-```id="1g6m53"
-{'01': 505, '11': 196, '10': 134, '00': 189}
-```
+A depolarizing noise model was introduced:
 
-* Success Probability: **~0.49**
+* Single-qubit and two-qubit errors
+* Simulates real quantum hardware conditions
 
----
+### Observation:
 
-## 📉 Performance Analysis
-
-| Condition | Success Probability |
-| --------- | ------------------- |
-| Ideal     | 1.0                 |
-| Noisy     | ~0.49               |
-
-📌 *As shown in the chart (page 8), noise significantly reduces performance.* 
+* No significant drop in performance
+* Indicates model is already underfitting
 
 ---
 
-## 📊 Visualization
+## 🧭 Decision Boundary
 
-* Bar chart comparison of success probabilities
-* Clearly illustrates degradation from ideal to noisy execution
-* <img width="864" height="668" alt="image" src="https://github.com/user-attachments/assets/b27d9b72-aed4-4c56-b159-4e9f8c7162a0" />
+The quantum model produces:
 
+* Smooth probability gradients
+* No sharp class separation
 
----
+### Interpretation:
 
-## ⚠️ Key Insights
-
-* Grover’s algorithm performs perfectly in ideal conditions
-* Noise introduces incorrect states and reduces success probability
-* Quantum advantage diminishes as noise increases
+* Model outputs uncertain predictions
+* Confirms limited expressive power
 
 ---
 
-## 🧠 Conclusion
+## ⚠️ Key Findings
 
-This project highlights the sensitivity of quantum algorithms to noise.
+### 1. Classical Models Outperform Quantum Models (Here)
 
-### 🔍 Key Learnings:
+For this dataset:
 
-* Grover’s algorithm efficiently finds target states in ideal environments
-* Noise disrupts amplitude amplification
-* Real-world quantum computing requires error mitigation
-
-### 🚀 Final Thought:
-
-While quantum algorithms provide computational advantages, **managing noise is essential for practical implementation**.
+* Logistic Regression performs significantly better
+* VQC struggles due to limited circuit complexity
 
 ---
 
-## 🛠️ Tech Stack
+### 2. Quantum Models Require Careful Design
 
-* Python
-* Qiskit
-* Qiskit Aer Simulator
-* Matplotlib
+Performance depends on:
 
----
-
-## 📂 Project Structure
-
-```id="fjokrs"
-Grover-Noise-Analysis/
-│── notebook.ipynb
-│── README.md
-│── requirements.txt
-```
+* Circuit depth
+* Ansatz design
+* Feature encoding
 
 ---
 
-## 📦 Installation
+### 3. Noise Is Not Always the Main Limitation
 
-```bash id="c2u9dz"
-pip install -r requirements.txt
-```
+* Noise had minimal impact in this case
+* Model capacity was the primary bottleneck
+
+---
+
+### 4. Optimization Converges but Hits Limits
+
+* Training successfully reduces loss
+* Model cannot achieve high accuracy
+
+---
+
+## 🏁 Conclusion
+
+This project demonstrates that while Variational Quantum Classifiers can be trained successfully, they do not automatically outperform classical models.
+
+### 🔍 Key Takeaways:
+
+* Classical ML remains highly effective for low-dimensional problems
+* Quantum models require deeper circuits and better design
+* Noise is important but not always the dominant factor
+* Achieving quantum advantage remains an open challenge
 
 ---
 
 ## 🔮 Future Improvements
 
-* Implement quantum error correction
-* Run on real quantum hardware (IBM Quantum)
-* Analyze larger search spaces
-* Compare different noise models
+* Increase circuit depth and number of parameters
+* Use advanced ansätze (hardware-efficient circuits)
+* Explore richer feature encoding techniques
+* Test on higher-dimensional datasets
+* Run experiments on real quantum hardware
+* Apply error mitigation strategies
 
 ---
+
+## 🛠️ Technologies Used
+
+* Python
+* Qiskit
+* Qiskit Aer
+* NumPy
+* Scikit-learn
+* Matplotlib
+* SciPy
+
+---
+
+## 📌 How to Run
+
+1. Clone the repository
+2. Install dependencies
+3. Open the notebook:
+
+```bash
+jupyter Project_5_Hybrid_Quantum_Classical_Machine_Learning.ipynb
+```
+
+4. Run all cells sequentially
+
+---
+
+
+## ⭐ Acknowledgment
+
+This project is part of an exploration into **Quantum Machine Learning**, demonstrating both the **potential and limitations** of current quantum approaches.
+
+---
+
+## 📢 Final Note
+
+> Quantum Machine Learning is promising, but practical advantage requires careful problem selection, circuit design, and hardware improvements.
+
+---
+
 
 ## 📜 License
 
